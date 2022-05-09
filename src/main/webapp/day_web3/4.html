@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+ul {
+	border: 1px solid gray;
+	padding: 10px;
+	list-style: none;
+}
+
+ul.inside {
+	list-style: square;
+	list-style-position: inside; /* square를 안으로 넣고싶다면 position이다.*/
+}
+
+li { /* li 사이에 간격을 마진 */
+	border: 1px solid gray;
+	margin: 5px;
+	padding: 10px;
+}
+
+li:hover {
+	background-color: navy;
+	color: yellow
+}
+div{
+border : 1px solid gray;
+padding: 5px;
+margin : 5px;
+}
+#container{
+/*background-color : lightblue;*/
+/* background-clip : border-box; */
+/*background-clip : padding-box;*/
+/*background-clip : content-box;*/
+/*background: url("../images/umbrella.jpg") no-repeat;  원래 크기*/
+/*background-image: url("../images/umbrella.jpg");  전체 크기 */
+/*background: url("../images/umbrella.jpg")  repeat-x; 조정 하기*/
+/*background-size: cover; 전체 다 덮기*/
+/*background: url("../images/watch.jpg")  no-repeat;*/
+/*background-position: center;*/
+/*background-attachment: fixed; 이미지 고정 시키기 */
+background: linear-gradient(to right bottom , yellow , white);
+
+
+}
+</style>
+</head>
+<body>
+	<div id = "container">
+		<div>
+	<h3>list-style-position을 지정하지 않음</h3>
+
+	<ul>
+		<li>회사소개</li>
+		<li>도서</li>
+		<li>자료실</li>
+		<li>질문답변</li>
+		<li>동영상강의</li>
+	</ul>
+	</div>
+	<div>
+	<h3>list-style-position : inside</h3>
+	<ul class=inside>
+		<li>회사소개</li>
+		<li>도서</li>
+		<li>자료실</li>
+		<li>질문답변</li>
+		<li>동영상강의</li>
+	</ul>
+		</div>
+	</div>
+</body>
+</html>

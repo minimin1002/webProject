@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>가상 클래스</title>
+	<style>
+		#container {
+			text-align:center;
+			color:#2b2b2b;
+		}
+		table, tb, th {
+			border:1px solid #ccc;
+		}
+		table {
+			width:200px;
+			margin:0 auto;
+			border-collapse:collapse;
+		}
+		td {			
+			text-align:left;
+			padding:10px;
+			padding-left:20px;
+		}
+		table tr:nth-child(2n) {
+			background:pink;
+			color:black;
+		}
+		table tr:nth-child(even) {
+			color:red;
+			border : 5px dotted red;
+		}
+		table tr:nth-child(2n+1) {
+			background:lightgray;
+			color:black;
+		}
+			table tr:nth-child(odd) {
+			color:green;
+		}
+			table tr:nth-child(3n) {
+			border : 5px dotted blue;
+		}
+			table tr:nth-child(3n+1) {
+			border : 5px dotted yellow;
+		}
+		#container p:nth-child(1){
+		border : 5px dotted red;
+		/*자식 중에 처음으로 나오면 nth-child(1)을 써준다.*/
+		/*타입 중에 처음으로 나오는 요소를 찾는다면 nth-of-type(1)을 써준다.*/
+		}
+		#container p:nth-of-type(2){
+		border : 5px dotted red;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<p>h1 전에 나오는 p0이당 얘는 child</p>
+		<h1>건강에 좋은 건강 식품</h1>
+		<p>h1 바로 다음에 나오는 p1이당</p>
+		<p>h1 바로 다음에 나오는 p2이당</p>
+		<p>h1 바로 다음에 나오는 p3이당</p>
+		<table>
+			<tr>
+				<td>블루베리</td>
+			</tr>
+			<tr>
+				<td>귀리</td>
+			</tr>
+			<tr>
+				<td>토마토</td>
+			</tr>
+			<tr>
+				<td>시금치</td>
+			</tr>
+			<tr>
+				<td>적포도주</td>
+			</tr>
+			<tr>
+				<td>견과류</td>
+			</tr>
+			<tr>
+				<td>브로콜리</td>
+			</tr>
+			<tr>
+				<td>연어</td>
+			</tr>
+			<tr>
+				<td>마늘</td>
+			</tr>
+			<tr>
+				<td>녹차</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
