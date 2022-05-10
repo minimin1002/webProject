@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+div{
+	margin : 10px; 
+	border : 1px solid blue;
+	padding : 10px;
+	}
+</style>
+<script>  
+//호이스팅 : var , function() 선언을 맨 먼저 수행한다!! //호이스팅은 함수 안으로 들어가진않고 전체를 훑었을때 var나 function이 있으면 먼저 수행하는 것. 
+alert("global v1=" + v1);                     //+= 은 왼쪽에 있는애한테 넣어라 라는 뜻
+call2();
+
+var v1 = 1000; //var 가 실행만 되고 할당은 아님
+
+
+function f(){
+	obj = document.querySelector("#here"); //이렇게 밖으로 빼놓고 아래 바디에 로드해서 처음부터 here을 찾아놓으면 아래 obj에서 사용가능
+	//의도적으로 글로벌로 만들어버림.
+}
+
+
+function call1(){
+	var a = 10;
+	var b = "자바스크립트"
+	var obj = document.querySelector("#here");
+	obj.innerHTML = "a=" + a + "<br> b=" + b; //이렇게 쓰는게 좋다
+	//백틱 `` : eclipse 내부 브라우저 지원안됨!! 외부에서 써야한다. 될 수 있으면 이걸 많이 써야한다.
+	//obj.innerHTML = `a=${a} <br> b=${b} `;
+}
+function call2(){
+	//호이스팅 : var로 선언 된 변수들을 함수의 맨 위로 올린다. (즉, 먼저 수행된다.) ,이 안에서 var로 먼저 선언 된 걸 찾아서 먼저 수행! 
+	obj.innerHTML = a; //undefined
+	var a = 100; //만약 var를 안적어 주면 위에 obj부터 실행되서 a가 선언되지 않은걸로 되기 때문에 not defined이다.
+	obj.innerHTML += "<br>" + a;
+	var a = 200;
+	obj.innerHTML += "<br>" + a; //중복 선언해도 아무 문제 없다.
+	
+}
+function call2(){
+	alert("<br>call2함수 추가");
+}
+function call3(){
+	var num1 = 10;				//얘만 지역변수
+		num2 = 20;              //얘도 var가 안붙어서 전역변수
+		
+	//block 내에서 유효한 변수 선언 시 let가 사용된다.
+	//ES5에서 추가(내부브라이저 지원안됨)
+	for(let num3=1; num3 <= 10; num3++){ //얘도 var가 안붙어서 for문을 수행하고 나면 전역변수 
+		obj.innerHTML += "<br>num3=" +num3;
+	} //얘는 11에 빠져나옴
+	//num3 is not defined
+	obj.innerHTML += "<br> loop 이후에 num3=" +num3;    //함수 안에서 유효하기때문에 loop을 빠져도 유효
+
+}
+
+function call4(){
+	obj.innerHTML = num2 + num3;  //3번을 누르고 실행해야 값이 나옴.
+}
+function call5() {
+	const MAX = 1000; 
+	//MAX = 2000; //상수는 선언하고 할당 되면 바꿀 수 없다
+	obj.innerHTML = MAX;
+	alert ("MAX = \"!!!!!\" " + MAX +  ' \'하핳\' 입니다.');  //더블코드 안에 더블코드를 찍고 싶으면 \" \" 이렇게 적어준다 싱글코트도 \' \'이다.
+}
+</script>
+</head>
+<body onload = "f();">
+<h1>JAVAScript 변수와 함수 사용</h1>
+<hr>
+<button onclick = "call1();">변수선언,백틱사용</button>
+<button onclick = "call2();">호이스팅</button>
+<button onclick = "call3();">의도하지않은 전역변수</button>
+<button onclick = "call4();">의도하지않은 전역변수 접근</button>
+<button onclick = "call5();">상수</button>
+<hr>
+<div id = "here">여기</div>
+</body>
+</html>

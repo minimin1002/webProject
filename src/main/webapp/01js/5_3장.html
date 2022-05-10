@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<hr>
+<h1>3장 조건문...1</h1>
+<h1>3장 조건문...2</h1>
+<button id = "btn1">동적element생성</button>
+<button id = "btn2">제목수정</button>
+<button id = "btn3">LAB1..양수,음수</button>
+<button id = "btn4">LAB2..짝수,홀수</button>
+<button id = "btn5">LAB3..성적</button>
+<hr>
+<div id = "here">여기</div>
+
+
+
+
+<script>
+document.getElementById("btn3").onclick = function(){
+		var data = prompt("값을 입력 해 주세요.", "");
+		var result;
+		if(data > 0){
+			result = "양수";
+		}else if(data == 0){
+			result = "0";
+		}else{
+			result = "음수";
+		}
+		document.querySelector("#here").innerHTML = result;
+		
+}
+
+document.getElementById("btn4").onclick = function(){
+	var data = prompt("값을 입력 해 주세요.", "");
+	var result;
+		if(data % 2 == 0){
+			result = "짝수";
+		}else{
+			result = "홀수";
+		}
+		document.querySelector("#here").innerHTML = result;
+	
+}
+
+document.getElementById("btn5").onclick = function(){
+	/* var data = prompt("값을 입력 해 주세요(수학,영어,국어)", "");
+	var arr = data.split(",");
+	var total = 0;
+	var grade="";
+	//in오른쪽에 배열인 경우는 index는 첨자
+	//in오른쪽에 객체인 경우는 속성.
+		for(let index in arr){
+			total += Number(arr[index]);
+		}
+	var avg = total / arr.length;
+		if(avg >=90){
+			grade = "수";
+		}else if(avg >= 80 && avg < 90){
+			grade = "우";
+		}else if(avg >= 70 && avg < 80){
+			grade = "미";
+		}else if(avg >= 60 && avg < 70){
+			grade = "양";
+		}else if(avg >= 40 && avg < 60){
+			grade = "가";
+		}
+		document.querySelector("#here").innerHTML = 
+			`총점 : ${total}
+			 평균 : ${avg}
+			 학점 : ${grade}`; */
+		
+		var data = prompt("값을 입력 해 주세요(수학,영어,국어)", "");
+		var arr = data.split(",");
+		var total = 0;
+		var grade="";
+		//in오른쪽에 배열인 경우는 index는 첨자
+		//in오른쪽에 객체인 경우는 속성.
+			for(let index in arr){
+				total += Number(arr[index]);
+			}
+		var avg = total / arr.length;
+		
+			/*  switch(avg) {
+			 	case avg >=90 , grade = "수":
+			 	break;
+			 	case avg >=80 && avg <90 ,grade = "우": 
+				break;
+				case avg >=70 && avg <80 ,grade = "미": 
+				break;
+				case avg >=60 && avg <70 ,grade = "양": 
+				break;
+				case avg >=40 && avg <60 ,grade = "가": 
+				break;
+				}	  */
+			avg = Math.ceil(avg/10); //floor가 올림 , ceil이 내림  >> 앞자리만 비교하는 것
+			 switch(avg) {
+			 	case 10:
+			 	case 9: grade = "A"; break;
+				case 8: grade = "B"; break;
+				case 7: grade = "C"; break;
+				case 6: grade = "D"; break;
+				default :  grade = "F"; break;
+				}	 
+				document.querySelector("#here").innerHTML = 
+					`총점 : ${total}
+					 평균 : ${avg}
+					 학점 : ${grade}`;
+	// && 그리고 , || 또는
+}
+
+
+
+// btn2.onclick = function(){}; 이렇게 적어줘도 바로 아래거와 똑같다.
+document.getElementById("btn2").onclick = function(){
+	//document.querySelector("h1:first-child").innerHTML = "aaaa";      //h1에서 처음 나온 글자 퍼스트차일드
+	document.querySelector("h1:first-of-type").innerHTML = "aaaa";     //h1위에 hr이 있어서 처음 나온 타입을 가리킴.
+	}
+
+
+
+
+document.getElementById("btn1").onclick = function(){  //btn 아이디를 눌렀다는게 발생하면 함수를 실행할거라는 뜻 버튼에 온클릭으로 함수를 넣는것과 뜻이 같다.
+	var str = `
+		<ul>
+		<li>HTML5</li>
+		<li>CSS3</li>
+		<li>JAVAScript</li>
+		<li>JSP/Servlet</li>         <!-- 여기 적은게 저 위에 여기 자리에 들어가고싶은것 -->
+	</ul>
+	`;
+	document.querySelector("#here").innerHTML = str;
+};
+</script>
+</body>
+</html>

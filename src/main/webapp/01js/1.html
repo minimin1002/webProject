@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+			<!-- 
+		HTML : 구조적 data{계층구조를 갖는 웹데이터(부모와 자식이 있음)}
+		CSS  : display담당(모양)
+  JAVAScript : 동작담당 (사용자의 행위에 의해 문서가 달라지도록한다.) head,body 모두 가능 > 하지만 일반적으로 head에 작성 , 그렇지만! 시간이 소요되는 작업은 body 아래부분에 작성한다.
+  				
+			 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="common.css" type="text/css">
+    <title>JavaScript 01</title>
+    <style>
+        /* internal css */
+        h1 {
+            background-color: yellow;
+        }
+        #here{
+        border : 1px soild blue;
+        }
+    </style>
+    <script>
+        alert("1. Head에 작성함");
+        console.log("1. Head에 작성함");
+    </script>
+    <script>
+        alert("2. Head에 작성함 2");
+        console.log("2. Head에 작성함 2");
+        // 아직 here를 가진 요소가 로드가 안 된 상태에서 불러오기 때문에 적용되지 않는다.
+        document.getElementById("here").innerHTML += "<h1>KOSTA</h1>";
+        function call() {
+            // 다 로드된 상태에서 불러오기 때문에 적용된다.
+            document.getElementById("here").innerHTML += "<h1>aaKOSTA</h1>";
+        }
+    </script>
+    <script src="external.js"></script>
+    <script>
+        f1();
+        f2();
+    </script>
+</head>
+<body onload="call()">
+    <script>
+        alert("3. Body 시작에 작성함 3 ... 권장 안 함");
+        console.log("3. Body 시작에 작성함 3 ... 권장 안 함");
+    </script>
+    <h1>JavaScript의 표준은 ECMAScript</h1>
+    <button onclick="alert('버튼누름');">버튼</button>
+    <div id="here"><h1>여기</h1></div>
+    <script>
+    	document.getElementById("here").innerHTML += "<h1>bbKOSTA</h1>";
+        alert("3. Body 끝에 작성함 3");
+        console.log("3. Body 끝에 작성함 3");
+        // 다 로드된 상태에서 불러오기 때문에 적용된다.
+        // 
+    </script>
+</body>
+</html>

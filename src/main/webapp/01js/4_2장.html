@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+<h1>기본 문법</h1>
+<hr>
+<button onclick = "call();">논리연산자</button>
+<button onclick = "call2();">논리연산자2</button>
+<button onclick = "call3();">식별자 재선언</button>
+<button onclick = "call4();">(BOM)window 객체의 모든정보</button>
+<input text= "text" id = "phone" value = "" >
+<button onclick = "call5();">prompt함수</button>
+<button onclick = "call6();">confirm함수</button>
+<button onclick = "call7();">문자와 숫자 혼합</button>
+<button onclick = "call8();">타입변형
+</button><button onclick = "call9();">타입변형(Boolean)</button>
+
+<hr> 
+<div id = "here">여기</div> <!-- id를 써준건 찾아서 쓰기 위해서.  -->
+<script>    //여기 아래다 두면 이미 here가 메모리 올라옴
+var obj = document.getElementById("here"); //이렇게 하면 here을 찾아서 obj에 넣어라
+
+function call9(){
+	obj.innerHTML +="<br/>" +Boolean(0);
+	obj.innerHTML +="<br/>" +Boolean("");
+	obj.innerHTML +="<br/>" +Boolean(nan);
+	obj.innerHTML +="<br/>" +Boolean(NUN);
+	obj.innerHTML +="<br/>" +Boolean(undefined);
+	obj.innerHTML +="<br/>" +Boolean(10);
+	obj.innerHTML +="<br/>" +Boolean("aa"+"</br>");
+	//자동 변환된다.
+	obj.innerHTML += 0 ==false;
+	obj.innerHTML += 1 ==true;
+	obj.innerHTML += 0 =="";
+	obj.innerHTML += 10 =="10";
+	//값과 타입을 비교한다.
+	obj.innerHTML += 10 === 10;
+	
+}
+
+function call8(){
+	var a = "500달러";   //이렇게 문자가 있으면 아래 넘버를써도 숫자로 못바뀜 결과는 //NaN(not a number) 뜻
+	var b = 1000;
+	obj.innerHTML = Number(a)+b; //이렇게 앞에 넘버를 적어주면 숫자가 우선순위가 높아짐!
+	//obj.innerHTML += a * String(b); //이래도 숫자가 우선순위가 높음 //곱하기는 무조건 숫자우선순위
+	obj.innerHTML += parseInt(a)+b;
+	
+}
+function call7(){
+	obj.innerHTML = 100 + "200"; //문자가 되어 100200으로 나옴 //문자가 우선순위 높다.
+	obj.innerHTML += "100" + "200";  //당연히 100200 
+	obj.innerHTML += "<br>";
+	obj.innerHTML += "그럼"+ 100 * "200";  //숫자가 우선순위 높음
+	obj.innerHTML += "그럼"+ "100" * "200";  //숫자가 우선순위 높음
+	obj.innerHTML += "100 * 200";  //문자가 우선순위 높음
+
+}
+
+
+function call6(){
+	var result = confirm("수락하겠습니까?");
+	//조건문
+	if(result){
+		obj.innerHTML = "감사합니다.";
+	}else{
+		obj.innerHTML = "다음 기회에...";
+	}
+	//3항연산자
+	obj.innerHTML += result? "감사합니당" : "그럼 꺼져!";
+}
+
+
+function call5(){
+	var phoneObj = document.getElementById("phone");
+	var myPhone = phoneObj.value;  //여기는 읽어 오는것
+		if(myPhone == ""){
+	//alert("전화번호를 입력하세요.");
+		var inputData = prompt("전화번호를 입력하세요." , "010"); 
+		phoneObj.value = inputData; //얘는 넣는것
+		phoneObj.focus();
+	}
+	
+}
+
+function call() {
+	//&& 는 결과가 boolean으로 나옴.
+	var a = 100;
+	obj.innerHTML = a > 20 && ++a > 30 ; //&&는 두개의 조건을 전부 만족해야 true  //자바에서는 앞에가 틀리면 뒤에는 보지도 않는다. 자바스크립트 역시 &&는 앞에 결과가 틀리면 뒷부분 수행 안함!
+	obj.innerHTML += "<br> a=" + a;  //+= 써주면 obj에 이너 연산자에 값을 넣어라~ 라는 뜻
+	
+	// & 하나는 앞에 결과와 무관하게 뒷부분까지 모두 수행 (결과가 number로 나옴)
+	var a = 10;
+	obj.innerHTML = a > 20 & ++a > 30 ;
+	obj.innerHTML += "<br> a=" + a;
+	
+	// & 하나는 앞에 결과와 무관하게 뒷부분까지 모두 수행 (결과가 number로 나옴)
+	var a = 100;
+	obj.innerHTML = a > 20 & ++a > 30 ;
+	obj.innerHTML += "<br> a=" + a;
+}
+function call2() {
+	//obj.innerHTML = 30 > 20 > 10; //이게 왜 틀리냐면 30과 20을 먼저 비교하면 true가 되는데 true와 10을 비교할때 트루가 숫자로 변하면서 1이된다. 10과 1을 비교하면 펄스가 됌
+	obj.innerHTML = 30 > 20 && 20 > 10; //이렇게 써야함.
+}
+function call2() {
+	//var alert = "식별자 재선언;"
+	//alert(alert);   //이런 함수는 없다고 안된다.
+	
+	//이건 가능
+	//var aa = "선언"
+	//	alert(aa);   //이런 함수는 없다고 안된다.
+		
+		var aa = "선언"
+			alert(alert);   //이런 함수는 없다고 안된다.
+}
+function call4(){
+	for(var pro in window){   //윈도우안에 있는 속성을 있을 때 까지 뽑아오는 것 (향상 된 for문) , pro는 속성 다 윈도우에 들어가있는것들
+		obj.innerHTML += "<br>" + pro + "-->" + window[pro];   //in은 window안에서 가져온다. 
+	}
+	
+}
+</script>
+</body>
+</html>

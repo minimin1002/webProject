@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+ span{ width: 100px; display:inlineblock; background : yellow;}
+</style>
+</head>
+<body>
+<h1>반복문</h1>
+<hr>
+<button id = "btn1">배열 사용하기</button>
+<button id = "btn2">for of</button>
+<button id = "btn3">LAB1 직각삼각형모양</button>
+<button id = "btn4">LAB2 continue</button>
+<button id = "btn5">LAB3 break</button>
+<hr>
+<div id = "here">여기</div>
+<script>
+btn4.onclick = function(){
+	var output = "";
+	for(let gop =1; gop<=9; gop++){
+		for(let dan =2 ; dan <=9; dan++){
+			if(dan ==4) continue;       //4단만나면 건너뛰고 계속 해라!! 만약 break를 쓰면 4단 만나면 빠져나와 버림.
+			var s = dan*gop+"";
+			var space = "";
+			if(s.length ==1) space = "&nbsp;"
+			output += `${dan}*${gop}=<span>${dan*gop}</span> &nbsp;&nbsp;&nbsp;`;
+		}
+		output += "<br>";
+	}
+	here.innerHTML = output;
+};
+
+btn3.onclick = function(){
+	var output ="";
+	//1줄...1칸
+	//2줄...2칸
+	//3줄...3칸
+	var row =prompt("줄 수 입력", 10);
+	for(let i = 1; i <= row; i++){
+		for(let j = 1; j <= i; j++){ //중첩 for문은 밖에 for문이 한번 돌 때 다돌아버린다 그래서 만약 j도 10까지라고 한다면 i가 한번 돌때 j는 10번을 돌으니 i까지 돌게 한다
+			//실질적으로 별을 찍어주는건 안에 있는 두번째 for문 돌때마다 output에 저장해주고 다 돌면 내려가서br을 만나 출력해준다. 누적되어서 삼각형이 만들어짐 
+			output += "*";
+		}
+		output += "<br>";
+	}
+	here.innerHTML = output;
+};
+
+
+
+
+
+
+btn2.onclick = function(){
+	var arr = [100,99,88,77];
+	//for in은 순서가 변수에 return된다.
+	for(let index in arr ){                  //let를 쓰면 반복문만 돌면 그 변수가 사라짐 //여기서 index는 순서
+		here.innerHTML += "<br>" +index +"==>"+ arr[index];
+	}
+	//for of는 값이 return된다.
+	for(let data of arr ){                  //let를 쓰면 반복문만 돌면 그 변수가 사라짐 
+		here.innerHTML += "<br>" + data;
+	}
+	
+	
+	
+};
+
+
+
+
+
+btn1.onclick = function(){
+	
+	var arr = [100,"자바스크립트 배열",10>20, {name : "홍길동" , age : 20}, [100,99,88],score ,function(){alert("함수입니다.");}];         //{}는 오브젝트 
+	var score =100;
+	for(var i in arr){     //i는 값이 아닌 순서가 들어온다. arr안에 라는 뜻
+		here.innerHTML += "<br>" + i + "번째 ==>" + typeof(arr[i])+ ":" + arr[i];
+		if(typeof(arr[i]) =="function"){
+		arr[i]();   /*함수 실행할땐 괄호열고 닫고 ,arr[i]에서 그 안에 있는 함수를 실행 하겠다고 하는 뜻*/
+		}
+	}
+};
+
+
+
+</script>
+</body>
+</html>
