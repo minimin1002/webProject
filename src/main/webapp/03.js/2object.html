@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+span {
+	color: green;
+}
+</style>
+<script>
+console.dir(window);
+//var name = "KOSTA";
+var arr = [100,99,88];
+var obj = {name2 : "홍길동" , 
+		age : 20 , 
+		"사는 곳" : "서울턱별시",
+		군필 : true ,
+		phone : ["0212345678" , "01012345678"],
+		score : {"자바":100 , "자바스크립트" :80},
+		study : function(){alert("함수이다");}, //메서드(object내의 함수)
+		study2 : function(subject){
+			here.innerHTML += "<hr>" + this.name2 ;   //내 객체가 가지고 있는 name을 불러온다 그냥 name을 쓰려면 위에 선언 따로 해줘야함.
+			
+			//here.innerHTML += "<br>" + name2
+		}   //메서드(object내의 함수)
+		};  //얘는 key로 //오브젝트는 중괄호 열고 안에 속성 : 값 이런식으로 넣는다
+
+function call2 (){
+	for(var index in arr){ //in은 arr안에 
+		here.innerHTML += "<br>" + arr[index]; //배열에서 하나씩 뽑는다.
+	}
+	for(var key in obj){  
+		here.innerHTML += "<br>" + key + typeof(obj[key]) + "==>" + obj[key]; //이렇게 키에 들어있는 값이 들어가게 하려면 []를 써줘야한다 
+		if(typeof(obj[key]) === "function" && key == "study2"){ //두번째 것만 호출하게끔 &&를 붙여 조건 두개를 모두 충족 시키게 만듦 "함수이다"는 뜨지 않는다.
+			obj[key]("JAVAScript");
+		}
+	
+	}
+	//object{}는 of 불가능!!!! ==> 배열[]은 가능!
+/*	for(var value of arr){      //of는 속성이 아니라 obj안에 들어있는 값이 들어온다.  //하지만 obj는 of를 못쓴다 arr만 가능
+		here.innerHTML += "<br>" + value;
+	}*/          //내부 브라우저가 지원 안함!
+}
+
+function call3() {
+	for (var key in obj){
+		here.innerHTML += "<br>" + key + (key in obj);     //key in obj는 obj안에 키가 있냐고 boolean으로 묻는 것
+	}
+	//객체 안에 속성이 존재하는지 (값이 있는지) 확인하는 방법
+	here.innerHTML += "<br>" + (name in window); //name은 속성이 존재하는데 값은 '' 이다 이걸 boolean로 보면 false이고 값이 있으면 true
+	here.innerHTML += "<br>" + Boolean('');
+	here.innerHTML += "<br>" + Boolean('aaaaa');
+	
+}
+function call4() {
+	var obj2 = {name : "홍길동" };
+	obj2.age=30; 
+	obj2.major= "컴공";
+	obj2.major= "경영";
+	obj2.name= "이경영";         //값이 덮어쓰기 된다.
+	/*for(var key in obj2){
+		here.innerHTML += "<br>" + key + "==>" + obj2[key];
+	}*/	
+
+	obj2.toString = function(){		//==>obj2의 투스트링을 재정의
+		var str = "";		 //문자열을 담을 변수를 만들어줌
+		for(var key in this){
+			str += "<br>" + key + "==>" + obj2[key];
+		}
+		return str;
+	};   
+	here.innerHTML += "<br>" + obj2;  //위에서 재정의 해서 이렇게찍으면 toString이 호출 // == obj2.toString() 이 생략
+}
+
+//함수 밖으로 나와소 global이 됌. //함수 밖으로만 나가면 무조건 글로벌
+var student = [{name : "홍길동" , java : 100 , sql : 90 , js : 80 },
+	{name : "김길동" , java : 10 , sql : 100 , js : 70}
+  ];
+student.push({name : "박길동" , java : 20 , sql : 10 , js : 50})
+student.push({name : "정길동" , java : 80 , sql : 60 , js : 40})
+student.push({name : "고길동" , java : 100 , sql : 100 , js : 100})
+
+for(var index in student){
+student[index].getSum = function(){return this.java+this.sql+this.js;}; //student[index]가 this이다.
+student[index].getAvg = function(){return this.getSum()/3;};     //get이라는 함수가 뭘 얻어라니까 리턴이있다.
+
+/* here.innerHTML += "<br>" + "<span>이름은</span>" + student[index]["name"] +	//index의 속성을 줘서 값이 나오게 함.
+				"<span>총점은</span>" + student[index].getSum()+									
+				"<span>평균은</span>" + student[index].getAvg();   */
+} 
+
+function call5(){
+	for(var index in student){
+	here.innerHTML += "<br>" + "<span>이름은</span>" + student[index]["name"] +	//index의 속성을 줘서 값이 나오게 함.
+	"<span>총점은</span>" + student[index].getSum()+									
+	"<span>평균은</span>" + student[index].getAvg();
+	}
+}
+
+function call6(){
+	var arr = []; 
+	arr.push(new Student("김길동" , 100,30,70));  //생성자 함수를 호출하는 방법 //{name : "김길동",java:100 sql:30 , js:70}
+	arr.push(new Student("고길동" , 99,90,80));
+	arr.push(new Student("주길동" , 74,65,60));
+	arr.push(new Student("이길동" , 35,76,30));
+	arr.push(new Student("홍길동" , 69,34,90));
+	
+	//같은 생성자 함수를 이용해서 만든 객체들이 공유하는 공간 : prototype
+	Student.prototype.getSum =  function (){return this.java + this.sql , this.js;};
+	Student.prototype.getAvg =  function (){return this.getSum()/3;};
+	Student.prototype.toString =  function (){
+	return "<br> <span>이름은</span>"+ this["name"]+
+	"<span>총점은</span>"+ this.getSum()+
+	"<span>평균은</span>"+ this.getAvg();
+	}
+	
+	
+	for(var index in arr){
+		here.innerHTML += arr[index];
+	}
+}
+function Student(name, java,sql ,js){ //다른 문자와 다른점은 대문자이다.
+	this.name = name;
+	this.java = java;
+	this.sql= sql;
+	this.js = js;
+
+}
+
+window.onload = function(){		// load가 끝나고 나서 실행해라 라는 뜻
+	
+	btn2.onclick = call2; //call2라는 이름 있는 함수를 집어 넣는다 call2를 따로 만들어 줘야함
+	btn3.onclick = call3;
+	btn4.onclick = call4;
+	btn5.onclick = call5;
+	btn6.onclick = call6;
+	btn1.onclick = function(){
+	
+	
+		here.innerHTML += "<br>" + arr[0]; //배열의 인덱스로 가져옴
+		here.innerHTML += "<br>" + obj.name2;
+		here.innerHTML += "<br>" + obj.age; //obj["age"]; 이렇게도 가능
+		here.innerHTML += "<br>" + obj["사는 곳"]; //얘는 이렇게만 가능 obj의 key값으로 가져옴
+	};
+};   
+	
+</script>
+</head>
+<body>
+	<h1>object연습</h1>
+	<button id="btn1">object1</button>
+	<button id="btn2">object2</button>
+	<button id="btn3">object3</button>
+	<button id="btn4">object동적속성추가</button>
+	<button id="btn5">배열과 오브젝트</button>
+	<button id="btn6">생성자 함수</button>
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>

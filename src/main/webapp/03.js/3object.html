@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script>
+window.onload = function(){
+	//onclick은 이벤트 속성 
+	//f1~f6는 이벤트 발생 시 수행 할 기능 (event handler)
+	btn1.onclick = f1;        //넣기만 하고 호출은 한적없다 버튼을 누르면 호출된다.
+	btn2.onclick = f2;
+	btn3.onclick = f3;
+	btn4.onclick = f4;
+	btn5.onclick = f5;
+	btn6.onclick = f6;
+	btn7.onclick = f7;
+	btn8.onclick = f8;
+	btn9.onclick = f9;
+	btn10.onclick = f10;
+	btn11.onclick = f11;
+};
+
+function Phone(model,b){       //여기서 a,b는 값을 받는 매개변수
+	var model = model;         //this를 안써주면 글로벌이 되어버림 this꼭 써야함 //var을 붙여주면 자바의 private같은 개념 , 밖에 공개가 안된다.
+	this.price = b;
+	this.getModel = function (){return model;};  //이렇게 get을 만들어줘서 var을 접근해줘야한다.
+	
+	//화살표 함수에서 this가 안되는 이유?
+		
+}
+
+Phone.prototype.toString = function(){
+	return "medel:" + this.getModel()+  //this를 써줘야함
+	"<br>"+ "price:" + this.price;
+	}
+
+function f1(){
+	var phones = [new Phone("AAA",10)];
+	var p1 = new Phone("ABC",100); //대문자를 써서 생성자 함수를 부르는 것.  //속성의 이름이 없으니 객체를 만들어준다. //new해서 담아진 p1은 this가 된다.
+	phones.push(p1);
+	phones.push(new Phone("BBB",90));
+	
+	for(var index in phones){
+		here.innerHTML += "<hr>" + phones[index];
+	}
+	
+	here.innerHTML += "<hr>" + p1.getModel();  //model에 var이 없으면 외부에서 직접 접근할 수 있는 public이다. 
+}
+
+function f2(){
+	var a =3.141592;
+	var b = new Number(3.141592);
+	//자바는 int (기본형), integer (기본형 + 기능추가 => wrapper class) 가 다르다.
+	//자바스크립트는 기본형도 기능을 가진다!! 객체와 같이 기능 사용가능
+	here.innerHTML += "<hr>" + a.toFixed(3);
+	here.innerHTML += "<hr>" + b.toFixed(3); //소수점 세자리까지 출력
+	
+	b.myFunction = function(){return 111; };  //메서드 추가
+	b.myProperty = 999; //속성추가  //기본형인 a는 안됌.
+	
+	here.innerHTML += "<hr>" + b.myFunction();
+	here.innerHTML += "<hr>" + b.myProperty;
+	here.innerHTML += "<hr>" + typeof(a) + ":"+ typeof(b);
+}
+
+function f3(){  //둘다 오브젝트를 만드는 방법
+	var a = {};
+	var b = new Object();
+	here.innerHTML += "<hr>" +a;
+	 a.toString = function(){return "toString재정의";}; //이게 재정의
+	 here.innerHTML += "<hr>" +a;
+}
+
+function f4(){
+	var a = "hello";   //기본형
+	var b = new String("hello"); //오브젝트형
+	here.innerHTML += "<hr>" +typeof(a)+":"+typeof(b);
+	here.innerHTML += "<hr>" + a.length;
+	here.innerHTML += "<hr>" + a.charAt(0);   //원하는번째 글자만 자르기
+	here.innerHTML += "<hr>" + a.substr(0,3);   //어디서부터 어디까지 나타내기 //hel
+	here.innerHTML += "<hr>" + a.substring(2,4);   //어디서부터 어디까지 나타내기 //ll
+	here.innerHTML += "<hr>" + a.replace("h" ,"j"); //뭐를 뭐로 바꿔라!
+	here.innerHTML += "<hr>" + a; //위에서 바꿔도 원본은 그대로
+}
+
+function f5(){
+	var arr1 = [70,90,30] ;
+	var arr2 = [50,70,68] ;
+	arr1 = arr1.concat(arr2);  //배열을 합친다. 원본은 바뀌지 않음
+	here.innerHTML += "<hr>" + arr1;
+	//배열을 문자열로 만들기 (default 는 , 로 연결)
+	here.innerHTML += "<hr>" + arr1.join("***");
+	//원본
+	here.innerHTML += "<hr>" + arr1;
+	//원본을 정렬한다.
+	arr1.sort();
+	here.innerHTML += "<hr>" + arr1;
+	//어센딩
+	arr1.sort(function(a,b){      //<=> 앞이 작고 뒤가 크면 어센딩 
+		return -(a-b) //이렇게 하면 디센딩  //b-a도 같음 
+	});
+	here.innerHTML += "<hr>" + arr1;
+	//디센딩
+	arr1.sort((a,b)=>a-b);      //람다식 표현
+	here.innerHTML += "<hr>" + arr1;
+	//디센딩 reverse사용
+	arr1.reverse();
+	here.innerHTML += "<hr>" + arr1;
+	}
+	
+function f6(){
+	var arr = call6();  //함수를 부름
+	
+	arr.sort(function (a,b){
+		return b.getSum - a.getSum();
+	});
+	
+	here.innerHTML += "<hr>"
+	for(var index in arr.slice(0,3)){     //세사람만 나오게 slice한다.
+		here.innerHTML += arr[index];
+	}
+	here.innerHTML += "<hr>"
+	//문자로 Ascending Sort (ASC)하기
+	arr.sort(function (a,b){ //ASC : -1 ,0 , 1
+		if(a.name == b.name) return 0;
+		if(a.name > b.name) return -1;
+		return 1;
+	});
+	
+	for(var index in arr){
+		here.innerHTML += arr[index];
+	}
+}
+
+function f7(){
+	//sort()는 기본적으로 문자열 sort이다.
+	var arr = [90,40,50,100,20,70];
+	arr.sort(function(a,b){return a-b;}); //어센딩 소트 //하나씩 a와 b에 넣고 빼면서 비교해 sort한다.
+	here.innerHTML +="<hr>" +arr;
+	
+	//index는 0,1,2,3,4,5로 가는데 처음엔 20 40 50 70 90 100인데 pop은 뒤에서 부터 빼는거다 근데 뒤에서 부터빼니까 index가 앞에서 찾을때 뒤에서 빼버리니까 3번째에서는 찾을 수 없다
+	for(var index =0; index<arr.length; index++){
+		var data = arr.pop();    
+		here.innerHTML += "<hr>" + index + "==>" + data;	
+	}
+	var arr = [90,40,50,100,20,70];
+	
+	//arr.splice(2,1);           //위치하고 양이다 2번째에 한개라는 뜻  //빼버리는 것
+	//here.innerHTML += "<hr>" + arr;
+	
+	Array.prototype.remove = function(index){     //remove를 만들어 준다.//splice로도 충분히 가능 굳이?
+		this.splice(index , 1);
+	};
+	arr.remove(1); //몇번째를 지울지
+	here.innerHTML += "<hr>" + arr;
+	
+	//하나씩 돌아가며 전부 지우기
+	
+	while(true){
+		//arr.remove(0);                 //0번째를 찍으면 while이 돌면서 순서대로 올려준다. //다 지우려면 항상 맨앞에꺼 지워주면 된다.
+		arr.splice(0,1); 				//splice(0번째 1개를 지운다) 사용
+		if(arr.length == 0) break;
+	}
+	here.innerHTML += "!!!!!!!!!!<hr>!!!!!!!!!!" + arr;
+	
+	//하나씩 말고 한꺼번에 지우기
+	var arr = [90,40,50,100,20,70];
+	arr.splice(0,arr.length);
+	here.innerHTML += "!!!!!!!!!!<hr>!!!!!!!!!!" + arr;
+}
+
+function f8(){
+	here.innerHTML += Math.max(1,2,3,4,5); 
+}
+
+function f9(){
+	var arr = [10,20,43,99];
+	here.innerHTML = arr.indexOf(99);   //값 입력을 통해 몇번째에 있는지 확인하기
+	here.innerHTML += "<hr>" + arr.indexOf(10); 
+	// 들어 온 data갯수 만큼 1ooping 하면서 처리한다.
+	arr.forEach(function(element, index ,array) {      //자바스크립트는 아규먼트 갯수 상관 업어서 다 지워도 된다.  //첫번째는 그냥 이름 두번째 인덱스 
+		here.innerHTML += "<hr>" + element + "==>"+ "순서는" + index;     
+	});
+	//map은 들어온 data가 변형되어 return된다.
+	arr = arr.map(function(elt, i, array) {
+		here.innerHTML += "<hr>" + elt;
+		return elt/10;          //나누기 10해서 arr에 다시 넣어주기
+	});
+	here.innerHTML += "<hr>" + arr;
+	
+	//filter : 조건에 맞으면 선택
+	var arr = [10,20,43,99];
+	arr = arr.filter(function(elt, i, array) {
+		return elt%2==0;
+	});
+	here.innerHTML += "<hr>" + arr;
+	
+	var arr = [1,2,3,4,5];
+	var result = arr.reduce(function(previous, current, index, array) {
+	
+		here.innerHTML += "<br>" + previous + "..." +current +"..." +index ;
+		return previous + current; //전에 있던 값과 현재값을 더해 return을 시키면 값이 
+	});
+	here.innerHTML += "<hr>" + result;
+}
+
+function f10(){    //JSON 꼭 이해해야함!!!
+	//JSON(JAVAScript Object Notation)
+	//JAVAScript Object형태의 문자열
+	var obj = {name : "홍길동" , 
+	age : 20 , 군필 : true , 
+	toJSON : function (){return {"key" :"value"};}
+	}; //obj에 toJSON메서드가 존재하면 재정의이다.!!!
+	   //JSON.stringify()에 의해 실행 된다.
+	var str = JSON.stringify(obj);    //자바스크립트에서 => 자바 로 보낼 때 이렇게 바꿔준다.
+	console.dir(obj);
+	console.dir(str);
+	var obj2 = JSON.parse(str);    //자바 => 자바스크립트 로 보낼 때 자바스크립트의 객체로 바꿀 때 이렇게 쓴다.
+	console.dir(obj2);
+
+	
+	var students = []
+	students.push({이름:"윤인성1", 국어:87, 수학:100, 영어:99, 과학:88})
+	students.push({이름:"윤인성2", 국어:97, 수학:98, 영어:88, 과학:59})
+	students.push({이름:"윤인성3", 국어:77, 수학:77, 영어:90, 과학:95})
+	students.push({이름:"윤인성4", 국어:87, 수학:98, 영어:89, 과학:99})
+	students.push({이름:"윤인성5", 국어:67, 수학:88, 영어:77, 과학:77})
+	//과학성적이 90이상인 학생은?
+	result = students.filter(function(item){
+	    return item.과학>=90;
+	});
+    console.dir(result);
+	//평균이  90이상인 학생은?
+	result = students.filter(function(item){
+	     return (item.국어 + item.수학 + item.영어 + item.과학) /4 >=90;
+	});
+	console.dir(result);
+	//과학성적이 90이상인 학생은?
+	result = students.filter(item=>item.과학>=90);
+	console.dir(result);
+	//평균이  90이상인 학생은?
+	result = students.filter(item=>(item.국어 + item.수학 + item.영어 + item.과학) /4 >=90);
+	console.dir(result);
+	
+	
+	students.sort(function(s1,s2){
+		if(s1.이름 == s2.이름) return 0;
+		if(s1.이름 < s2.이름) return 1;
+		return -1;
+	});
+	console.dir(students);
+	
+}
+
+/* function f11(){
+	var students = []
+	students.push({이름:"윤인성1", 국어:87, 수학:100, 영어:99, 과학:88})
+	students.push({이름:"윤인성2", 국어:97, 수학:98, 영어:88, 과학:59})
+	students.push({이름:"윤인성3", 국어:77, 수학:77, 영어:90, 과학:95})
+	students.push({이름:"윤인성4", 국어:87, 수학:98, 영어:89, 과학:99})
+	students.push({이름:"윤인성5", 국어:67, 수학:88, 영어:77, 과학:77})
+	students = _.sortBy(students, "수학");
+	console.log(students);
+} */
+</script>
+<script src="external.js"></script>
+<!-- 이렇게 하면 스크립트 파일에서 가져오는 것 --> 
+<script src ="underscore-umd-min.js"></script>
+<script>
+
+function f11(){
+	var students = []
+	students.push({이름:"윤인성1", 국어:87, 수학:100, 영어:99, 과학:88})
+	students.push({이름:"윤인성2", 국어:97, 수학:98, 영어:88, 과학:59})
+	students.push({이름:"윤인성3", 국어:77, 수학:77, 영어:90, 과학:95})
+	students.push({이름:"윤인성4", 국어:87, 수학:98, 영어:89, 과학:99})
+	students.push({이름:"윤인성5", 국어:67, 수학:88, 영어:77, 과학:77})
+	students = _.sortBy(students, "수학"); //_scorejs
+	students = students.reverse(); //js
+	console.log(students);
+	
+	//return값으로 키를 만들어 묶어준다. // 결과값이 키가 됨.
+	var result = _.groupBy([1.3, 2.1, 2.4], function(num){ return Math.floor(num); }); //1로 묶어주고 2로 묶어준다.
+	//=> {1: [1.3], 2: [2.1, 2.4]}
+	console.log(result);
+
+	result = _.groupBy(['one', 'two', 'three' , "javascript"], 'length'); //length값을 묶어준다.
+	//=> {3: ["one", "two"], 5: ["three"]}
+	console.log(result);
+}
+</script>
+</head>
+<body>
+	<h1>내장object연습</h1>
+	<button id="btn1">object1</button>
+	<button id="btn2">기본자료형과 오브젝트</button>
+	<button id="btn3">object{}</button>
+	<button id="btn4">String</button>
+	<button id="btn5">Array</button>
+	<button id="btn6">Array-Sort</button>
+	<button id="btn7">Array-요소제거</button>
+	<button id="btn8">Math</button>
+	<button id="btn9">Array-ECMAScript</button>
+	<button id="btn10">JSON(JAVAScript Object Notation)</button>
+	<button id="btn11">underscore </button>
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>
