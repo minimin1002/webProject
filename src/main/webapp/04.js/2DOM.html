@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- 기기에 맞게 바꿔준다! -->
+<title>Insert title here</title>
+<style> 
+#here {border : 5px dotted gray;}
+input+span{color : blue;}
+</style>
+<script>
+window.onload = function(){
+	hh = document.getElementById("here");      //이렇게 하면 전부 다 쓸 수 있다.
+	btn1.onclick = f1;	
+	btn2.onclick = f2;	
+	btn3.onclick = f3;	
+	btn4.onclick = f4;	
+	btn5.onclick = f5;	
+	btn6.onclick = f6;	
+	btn7.onclick = f7;	
+	btn8.onclick = f8;	
+	
+	document.querySelector("#btn7").onclick =f7; //원래는 이렇게 적는데 위에 간단히 적은 것
+	
+	document.querySelectorAll("input[type='checkbox']").forEach(function(elt , i, array){	
+	});
+	
+	var arr = document.querySelectorAll("input[type='checkbox']");
+	arr.forEach(function(elt ,i ,array){
+		elt.onchange = call2;
+	});
+	
+};         //오른쪽에 있는 걸 왼쪽으로 넣어라 라니까 뒤에 세미콜론을 붙어준다
+
+function call2(){
+	//alert("값 바뀜");
+	//console.log(this.checked);
+	console.dir(this);     //this는 onchange되는 객체
+	if(this.checked){
+	/* 	var a = this.querySelector("span")
+		console.log(this);        //this는 <input type = "checkbox" name ="food" value="카레"><span>카레</span> 이걸 뜻 함. */
+		this.nextElementSibling.style.backgroundColor = "pink";     //체크했을 때 (true)
+	}else{
+		this.nextSibling.style.backgroundColor = "yellow"; //이것도 가능    //체크해체(false)
+	}
+}
+function f1 (){
+	var element_node = document.createElement("h2");   //<h2></h2>
+	console.log(element_node);
+	var text_node = document.createTextNode("Hello~~");
+	console.log(text_node);
+	element_node.appendChild(text_node);
+	console.log(element_node);
+	//<h2>Hello~~</h2>
+	var here = document.getElementById("here");
+	hh.appendChild(element_node);
+}
+function f2 (){
+	var here = document.getElementById("here");
+	here.innerHTML += "<h2>Hello~~</h2>";       //위에 f1과 똑같다. //이게 훨씬 간단데스
+}
+function f3 (){
+	//var here = document.getElementById("here");
+	//var imgsrc = "../images/umbrella.jpg";
+	//here.innerHTML += `<img src ='${imgsrc}'>`;   //innerHTML은 속성
+	call();
+}
+function call(){
+	var obj = {}; //이게 객체
+	obj.src = ""; //이게 속성 넣기
+	var imgsrc = "../images/umbrella.jpg";
+	var element_node = document.createElement("img");   //<img>
+	//element_node.src = imgsrc;
+	element_node.setAttribute("src", imgsrc);      //이렇게 속성 값을 setAttribute로 넣어도 된다.
+	element_node.setAttribute("width", 300);
+	element_node.setAttribute("height", 300);
+	//var here = document.getElementById("here");   //이거 안써도 된다.
+	hh.appendChild(element_node);        //appendChild는 함수
+}
+
+function f4(){
+	//HTMLCollection : 향상 for , forEach 가능!!
+ 	var arr = document.getElementsByName("food");
+ 	arr.forEach(function(elt , i ,array){
+ 		hh.innerHTML += "<br>" +elt.value + "==>" ;	
+ 		hh.innerHTML += elt.checked?"선택됨":"선택안됨";
+ 		});
+ 	}
+function f5(){
+	//NodeList type : 향상 for , forEach 불가!!!!
+	var arr = document.getElementsByTagName("button");
+	console.dir(arr);
+	for(var index =0; index<arr.length; index++){
+		hh.innerHTML += "<br>" +arr[index].innerHTML;
+	}
+}
+
+function f6(){
+	//버튼 값 찍어주기
+	var arr = document.querySelectorAll("button");   //NodeList 라 버튼
+	for(var index = 0; index<arr.length; index++){
+		hh.innerHTML += "<br>" +arr[index].innerHTML;     
+	}
+	//체크박스 값 찍어주기
+	var arr = document.querySelectorAll("input[name='food']");   //NodeList 라 버튼                
+	for(var index = 0; index<arr.length; index++){        
+		hh.innerHTML += "<br>" +arr[index].value;     //체크박스 안에있는 값을 찍어야하니 value를 적어준다
+	}
+	//체크 한 것만 찍어주기
+ 	var arr = document.querySelectorAll("input:checked");   //NodeList 라 버튼 
+	for(var index = 0; index<arr.length; index++){
+		hh.innerHTML += "<hr>" +arr[index].value;     //체크박스 안에있는 값을 찍어야하니 value를 적어준다.  
+	}
+	 
+	//NodeList에 향상된 for 쓴것 쓸데없는것까지 다뜬다
+	/* var arr = document.querySelectorAll("input:checked");   //NodeList 라 버튼 
+	for(var index in arr){
+		console.log("<br>" + "---" + arr[index]);
+		hh.innerHTML += "<hr>" +arr[index].value;     //체크박스 안에있는 값을 찍어야하니 value를 적어준다.  
+	} */
+	//foreach
+	/* arr.forEach(function (elt, index ,array){
+		hh.innerHTML += "<hr>" +elt.value;
+	}); */
+}
+function f7(){
+	var arr = document.querySelectorAll("button");       //버튼을 찾아라~
+	arr.forEach(function(elt, i ,array){
+		if(i%2==0){      //i를 2로 나눈 나머지가 짝수냐 라는 뜻
+			elt.style.backgroundColor = "yellow";
+			elt.style.Color = "red";              //이렇게 조건을 주면 짝수 번째만 바껴야한다.
+			
+		}else{
+			elt.style.border = "1px solid red";
+		}
+	});
+	 
+}
+
+function f8(){
+	// hh.parentNode.removeChild(hh);       //div에서 here1지우기
+	var obj = document.querySelector(".foodSelect");
+	obj.parentNode.removeChild(obj);
+	 
+	//here부분을 전부 지우기
+	var arr = document.querySelectorAll("#here");      
+	arr.forEach(function(elt, i ,array){
+		elt.parentNode.removeChild(elt);
+	});
+}
+</script>
+</head>
+<body>
+	<h1>DOM(Document Object Model)</h1>
+	<Button id = "btn1">동적노드생성(create)</Button>
+	<Button id = "btn2">동적노드생성(innerHTML)</Button>
+	<Button id = "btn3">동적노드생성(img)</Button>
+	<Button id = "btn4">getElementsByName</Button>  <!-- 여러개여서 Elements 이다 -->
+	<Button id = "btn5">getElementsByTagName</Button>
+	<Button id = "btn6">querySelectAll</Button>
+	<Button id = "btn7">style변경</Button>
+	<Button id = "btn8">node지우기</Button>
+	<hr>
+	<div id = "here">여기1</div>    <!-- 이름이 같으면 먼저 만나는 애가 실행된다. //id는 문서 내에서 유일해야한다.-->
+	<div id = "here">여기2</div>
+	<div class = "foodSelect">
+	<input type = "checkbox" name ="food" value="소고기" onchange="alert('맛있어~')"><span>소고기</span>     <!-- 값은 안에 들어있는 값이고 밖에있는건 보여주는 글자 -->
+	<input type = "checkbox" name ="food" value="파스타" onchange="alert('존맛탱~')"><span>파스타</span>
+	<input type = "checkbox" name ="food" value="카레"><span>카레</span>
+	<input type = "checkbox" name ="food" value="짜장면"><span>짜장면</span>
+	</div>
+</body>
+</html>

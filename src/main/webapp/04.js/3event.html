@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	//이벤트 이름 : load
+	//이벤트 속성 : onload
+	//이벤트 핸들러 : 리스너 :function(){};
+
+	window.onload = function() {
+		document.querySelector("#header1"), onclick = function() {
+			// alert(this.innerHTML);
+			//document.querySelector("#hearder1").onclick = null;
+			if (flag) {
+				this.style.backgroundColor = "orange";
+			} else {
+				this.style.backgroundColor = "lightgreen";
+				flag = !flag;
+				consol.dir(ee);
+				here.innerHTML == "위치 X=" + ee.clientX + "y=" + ee.clientY;
+			}
+			;
+
+			btn1.onclick = function() {
+				header1.onclick();
+			};
+
+			// 인라인이벤트모델은 쓰지 않는게 좋다!!!! 권장하지는 않지만 알긴 알아야한다
+		};
+		btn2.onclick = function() {
+		console.dir(document.querySelector("#myfrm"));
+		};
+		
+		
+		//default event를 취소하는 방법
+		myfrm.onsubmit = function(){
+			var userid = document.querySelector("input[name='userid']").value.trim();      //트림은 공백제거
+			var userpass = document.querySelector("input[name='userpass']").value.trim();
+			if(userid.length == 0 || userpass.length == 0){
+				alert("아이디와 비밀번호 입력은 필수 입니다.")
+				return false;
+			}
+			
+		};
+		
+	};//onload닫기
+
+</script>
+</head>
+<body>
+	<h1 id="header1">header1...이벤트연결연습(고전적방법)</h1>
+	<button id ="btn1">이벤트 강제발생</button>
+	<button id ="btn2">form정보 알아내기</button>
+	<form id ="myfrm" action="4.jsp" >   <!-- 여기서 그냥 call만 쓰면 안되고 return을 꼭 써줘야한다. -->
+	아이디<input type ="text" name="userid" value="admin">
+	비밀번호<input type ="text" name="userpass" value="1234">
+	<input type = "submit" value = "서버전송">
+	</form>
+	<hr>
+	<div id = "here">여기</div>
+</body>
+</html>
