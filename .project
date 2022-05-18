@@ -30,6 +30,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>src/main/webapp/05js</name>
+			<type>2</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Users/KOSTA/Desktop/05js</locationURI>
+		</link>
+		<link>
 			<name>src/main/webapp/08</name>
 			<type>2</type>
 			<locationURI>PARENT-3-PROJECT_LOC/Users/KOSTA/Desktop/08</locationURI>
